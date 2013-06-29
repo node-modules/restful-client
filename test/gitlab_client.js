@@ -18,6 +18,11 @@ function Project(client) {
 }
 util.inherits(Project, restful.RESTFulResource);
 
+function Issue(client) {
+  this.constructor.super_.call(this, client, '/projects/:id/issues', 'issue_id');
+}
+util.inherits(Issue, restful.RESTFulResource);
+
 function Gitlab(options) {
   options = options || {};
   options.api = options.api || 'http://demo.gitlab.com/api/v3';
@@ -25,7 +30,8 @@ function Gitlab(options) {
   this.token = options.token;
 
   this.addResources({
-    projects: Project
+    projects: Project,
+    issues: Issue,
   });
 }
 
