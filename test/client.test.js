@@ -15,7 +15,7 @@ var should = require('should');
 
 describe('client.test.js', function () {
   
-  var gitlab = new Gitlab({token: 'enEWf516mA168tP6BiVe', requestTimeout: 9000});
+  var gitlab = new Gitlab({token: 'xD2u7qqskGczXKZ7Mum9', requestTimeout: 9000});
 
   describe('RESTfulClient', function () {
     describe('request()', function () {
@@ -56,14 +56,14 @@ describe('client.test.js', function () {
 
     describe('get()', function () {
       it('should get a project', function (done) {
-        gitlab.projects.get({id: 2298}, function (err, result) {
+        gitlab.projects.get({id: 1}, function (err, result) {
           should.not.exists(err);
           should.exists(result);
-          result.name.should.equal('fawave');
-          result.id.should.equal(2298);
-          result.path_with_namespace.should.equal('fengmk2/fawave');
-          result.created_at.should.equal('2013-02-06T02:40:48Z');
-          console.log(new Date(result.created_at));
+          result.name.should.equal('Diaspora');
+          result.id.should.equal(1);
+          result.path_with_namespace.should.equal('diaspora/diaspora');
+          result.created_at.should.equal('2012-12-21T12:57:47Z');
+          new Date(result.created_at).should.be.instanceof(Date);
           done();
         });
       });

@@ -20,7 +20,7 @@ util.inherits(Project, restful.RESTFulResource);
 
 function Gitlab(options) {
   options = options || {};
-  options.api = options.api || 'https://gitlab.com/api/v3';
+  options.api = options.api || 'http://demo.gitlab.com/api/v3';
   this.constructor.super_.call(this, options);
   this.token = options.token;
 
