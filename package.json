@@ -1,6 +1,6 @@
 {
   "name": "restful-client",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "RESTFul api client base object. Usually use by some api client implementation.",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "debug": ">=0.7.2",
-    "urllib": ">=0.3.4"
+    "urllib": ">=0.4.4"
   },
   "devDependencies": {
     "should": "*",
