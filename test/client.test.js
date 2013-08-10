@@ -17,7 +17,8 @@ var mm = require('mm');
 describe('client.test.js', function () {
   
   var gitlab = new Gitlab({token: 'xD2u7qqskGczXKZ7Mum9', requestTimeout: 9000});
-
+  var lastId;
+  
   afterEach(mm.restore);
 
   describe('RESTfulClient', function () {
@@ -28,6 +29,7 @@ describe('client.test.js', function () {
           should.exists(result);
           result.length.should.above(1);
           result[0].should.have.property('id');
+          lastId = result[result.length - 1].id;
           done();
         });
       });
@@ -98,13 +100,13 @@ describe('client.test.js', function () {
 
     describe('get()', function () {
       it('should get a project', function (done) {
-        gitlab.projects.get({id: 1}, function (err, result) {
+        gitlab.projects.get({id: lastId}, function (err, result) {
           should.not.exists(err);
           should.exists(result);
-          result.name.should.equal('Diaspora');
-          result.id.should.equal(1);
-          result.path_with_namespace.should.equal('diaspora/diaspora');
-          result.created_at.should.equal('2012-12-21T12:57:47Z');
+          // result.name.should.equal('Diaspora');
+          result.id.should.equal(lastId);
+          // result.path_with_namespace.should.equal('diaspora/diaspora');
+          // result.created_at.should.equal('2012-12-21T12:57:47Z');
           new Date(result.created_at).should.be.instanceof(Date);
           done();
         });
@@ -124,15 +126,15 @@ describe('client.test.js', function () {
 
     describe('create()', function () {
       it('should create a project issue', function (done) {
-        gitlab.issues.create({id: 1, title: 'https://github.com/fengmk2/restful-client'}, function (err, issue) {
+        gitlab.issues.create({id: lastId, title: 'https://github.com/fengmk2/restful-client'}, function (err, issue) {
           should.not.exists(err);
           should.exists(issue);
-          issue.should.have.property('project_id', 1);
+          issue.should.have.property('project_id', lastId);
           issue.should.have.property('id');
           issue.should.have.property('title', 'https://github.com/fengmk2/restful-client');
-          gitlab.issues.remove({id: 1, issue_id: issue.id}, function (err) {
+          gitlab.issues.remove({id: lastId, issue_id: issue.id}, function (err) {
             // should.not.exists(err);
-            gitlab.issues.update({id: 1, issue_id: issue.id, state_event: 'close'}, function (err, issue) {
+            gitlab.issues.update({id: lastId, issue_id: issue.id, state_event: 'close'}, function (err, issue) {
               should.not.exists(err);
               issue.should.have.property('state', 'closed');
               done();
