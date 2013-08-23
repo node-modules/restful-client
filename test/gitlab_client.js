@@ -23,6 +23,26 @@ function Issue(client) {
 }
 util.inherits(Issue, restful.RESTFulResource);
 
+function Repository(client) {
+  this.constructor.super_.call(this, client, '/projects/:id/repository/:type', 'branch');
+}
+util.inherits(Repository, restful.RESTFulResource);
+
+/**
+ * Get the raw file contents for a file.
+ * 
+ * @param {Object} params
+ *  - {String} id The ID of a project
+ *  - {String} sha The commit or branch name
+ *  - {String} filepath The path the file
+ * @param {Function} callback
+ */
+Repository.prototype.getBlob = function (params, callback) {
+  params.type = 'commits';
+  params.contentType = 'buffer';
+  this.client.request('get', this.path + '/:sha/blob', params, callback);
+};
+
 function Gitlab(options) {
   options = options || {};
   options.api = options.api || 'http://demo.gitlab.com/api/v3';
@@ -32,6 +52,7 @@ function Gitlab(options) {
   this.addResources({
     projects: Project,
     issues: Issue,
+    repositorys: Repository,
   });
 }
 

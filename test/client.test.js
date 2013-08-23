@@ -98,6 +98,20 @@ describe('client.test.js', function () {
       });
     });
 
+    describe('custom resource function: getBlob()', function () {
+      it('should return a file content', function (done) {
+        gitlab.repositorys.getBlob({ id: 3, sha: 'master', filepath: 'README.md' }, function (err, blob) {
+          should.not.exists(err);
+          should.exists(blob);
+          should.ok(Buffer.isBuffer(blob));
+          blob.should.be.instanceof(Buffer);
+          blob.length.should.above(0);
+          blob.toString().should.include('GitLab: self hosted Git management software');
+          done();
+        });
+      });
+    });
+
     describe('get()', function () {
       it('should get a project', function (done) {
         gitlab.projects.get({id: lastId}, function (err, result) {
