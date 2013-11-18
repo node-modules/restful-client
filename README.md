@@ -1,6 +1,8 @@
 restful-client [![Build Status](https://secure.travis-ci.org/fengmk2/restful-client.png)](http://travis-ci.org/fengmk2/restful-client) [![Coverage Status](https://coveralls.io/repos/fengmk2/restful-client/badge.png)](https://coveralls.io/r/fengmk2/restful-client) [![Build Status](https://drone.io/github.com/fengmk2/restful-client/status.png)](https://drone.io/github.com/fengmk2/restful-client/latest)
 =======
 
+[![NPM](https://nodei.co/npm/restful-client.png?downloads=true&stars=true)](https://nodei.co/npm/restful-client/)
+
 ![logo](https://raw.github.com/fengmk2/restful-client/master/logo.png)
 
 RESTFul api client base object. Usually use by some api client implementation.
@@ -48,7 +50,7 @@ gitlab.projects.list({page: 1}, function (err, result) {
 });
 ```
 
-## License 
+## License
 
 (The MIT License)
 
