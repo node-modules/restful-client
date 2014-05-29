@@ -1,11 +1,11 @@
 {
   "name": "restful-client",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "RESTFul api client base object. Usually use by some api client implementation.",
   "main": "index.js",
   "scripts": {
     "test": "make test-all",
-    "blanket": { 
+    "blanket": {
       "pattern": "restful-client/lib",
       "data-cover-flags": {
         "debug": false
@@ -16,21 +16,24 @@
     }
   },
   "dependencies": {
-    "debug": ">=0.7.2",
-    "urllib": ">=0.4.4"
+    "debug": "~0.8.1",
+    "urllib": "~0.5.16"
   },
   "devDependencies": {
-    "should": "*",
+    "contributors": "*",
+    "autod": "*",
     "blanket": "*",
-    "travis-cov": "*",
     "coveralls": "*",
-    "mocha-lcov-reporter": "*",
+    "mm": "~0.2.1",
     "mocha": "*",
-    "mm": "*"
+    "mocha-lcov-reporter": "*",
+    "should": "~3.3.2",
+    "travis-cov": "*"
   },
+  "homepage": "https://github.com/node-modules/restful-client",
   "repository": {
     "type": "git",
-    "url": "git://github.com/fengmk2/restful-client.git"
+    "url": "git://github.com/node-modules/restful-client.git"
   },
   "keywords": [
     "restful-client"

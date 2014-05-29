@@ -1,24 +1,28 @@
-/*!
+/**!
  * restful-client - test/client.test.js
- * Copyright(c) 2013 fengmk2 <fengmk2@gmail.com>
+ * Copyright(c) 2013 - 2014 fengmk2 <fengmk2@gmail.com>
  * MIT Licensed
  */
 
-"use strict";
+'use strict';
 
 /**
  * Module dependencies.
  */
 
-var Gitlab = require('./gitlab_client');
 var should = require('should');
 var mm = require('mm');
+var Gitlab = require('./gitlab_client');
 
 describe('client.test.js', function () {
-  
-  var gitlab = new Gitlab({token: 'xD2u7qqskGczXKZ7Mum9', requestTimeout: 9000});
+
+  var gitlab = new Gitlab({
+    api: 'https://gitlab.com/api/v3',
+    token: 'enEWf516mA168tP6BiVe',
+    requestTimeout: 15000
+  });
   var lastId;
-  
+
   afterEach(mm.restore);
 
   describe('RESTfulClient', function () {
@@ -38,9 +42,9 @@ describe('client.test.js', function () {
         mm.http.request(/\//, '{w');
         gitlab.projects.list(function (err, result) {
           should.exists(err);
-          err.name.should.equal('GitlabReponseFormatError');
+          err.name.should.equal('GitlabJSONResponseFormatError');
           err.data.should.eql({resBody: '{w'});
-          err.message.should.equal('Parse json error: Unexpected token w');
+          err.message.should.include('Unexpected token w');
           err.statusCode.should.equal(200);
           should.not.exists(result);
           done();
@@ -53,7 +57,7 @@ describe('client.test.js', function () {
           should.exists(err);
           err.name.should.equal('GitlabMockError');
           err.data.should.eql({resBody: {"name": "MockError", "message": "mock error", "errors": [{"field": "test"}]}});
-          err.message.should.equal('mock error');
+          err.message.should.include('mock error');
           err.statusCode.should.equal(403);
           err.errors.should.eql([{"field": "test"}]);
           should.not.exists(result);
@@ -67,13 +71,12 @@ describe('client.test.js', function () {
           should.exists(err);
           err.name.should.equal('GitlabMockHttpRequestError');
           err.data.should.eql({resBody: undefined});
-          err.message.should.equal('socket hangup');
+          err.message.should.include('socket hangup');
           should.not.exists(result);
           done();
         });
       });
     });
-
   });
 
   describe('RESTFulResource', function () {
@@ -100,13 +103,13 @@ describe('client.test.js', function () {
 
     describe('custom resource function: getBlob()', function () {
       it('should return a file content', function (done) {
-        gitlab.repositorys.getBlob({ id: 3, sha: 'master', filepath: 'README.md' }, function (err, blob) {
+        gitlab.repositorys.getBlob({ id: 55045, sha: 'master', filepath: 'README.md' }, function (err, blob) {
           should.not.exists(err);
           should.exists(blob);
           should.ok(Buffer.isBuffer(blob));
           blob.should.be.instanceof(Buffer);
           blob.length.should.above(0);
-          blob.toString().should.include('GitLab: self hosted Git management software');
+          blob.toString().should.include('gitlab-client-unittest');
           done();
         });
       });
@@ -127,10 +130,10 @@ describe('client.test.js', function () {
       });
 
       it('should get a not exists project return 404', function (done) {
-        gitlab.projects.get({id: 404}, function (err, result) {
+        gitlab.projects.get({id: 40440404040440404}, function (err, result) {
           should.exists(err);
           err.name.should.equal('Gitlab404Error');
-          err.message.should.equal('404 Not Found');
+          err.message.should.include('404 Not Found');
           err.statusCode.should.equal(404);
           should.not.exists(result);
           done();

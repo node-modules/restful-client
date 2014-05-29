@@ -1,13 +1,17 @@
-restful-client [![Build Status](https://secure.travis-ci.org/fengmk2/restful-client.png)](http://travis-ci.org/fengmk2/restful-client) [![Coverage Status](https://coveralls.io/repos/fengmk2/restful-client/badge.png)](https://coveralls.io/r/fengmk2/restful-client) [![Build Status](https://drone.io/github.com/fengmk2/restful-client/status.png)](https://drone.io/github.com/fengmk2/restful-client/latest)
+restful-client
 =======
+
+[![Build Status](https://secure.travis-ci.org/node-modules/restful-client.png)](http://travis-ci.org/node-modules/restful-client)
+
+[![Coverage Status](https://coveralls.io/repos/node-modules/restful-client/badge.png)](https://coveralls.io/r/node-modules/restful-client)
 
 [![NPM](https://nodei.co/npm/restful-client.png?downloads=true&stars=true)](https://nodei.co/npm/restful-client/)
 
-![logo](https://raw.github.com/fengmk2/restful-client/master/logo.png)
+![logo](https://raw.github.com/node-modules/restful-client/master/logo.png)
 
 RESTFul api client base object. Usually use by some api client implementation.
 
-Example: [gitlab](https://github.com/fengmk2/gitlab)
+Example: [gitlab](https://github.com/repo-utils/gitlab)
 
 ## Install
 
@@ -54,7 +58,7 @@ gitlab.projects.list({page: 1}, function (err, result) {
 
 (The MIT License)
 
-Copyright (c) 2013 fengmk2 &lt;fengmk2@gmail.com&gt;
+Copyright (c) 2013 - 2014 fengmk2 &lt;fengmk2@gmail.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

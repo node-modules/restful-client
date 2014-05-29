@@ -30,7 +30,7 @@ util.inherits(Repository, restful.RESTFulResource);
 
 /**
  * Get the raw file contents for a file.
- * 
+ *
  * @param {Object} params
  *  - {String} id The ID of a project
  *  - {String} sha The commit or branch name
@@ -45,7 +45,7 @@ Repository.prototype.getBlob = function (params, callback) {
 
 function Gitlab(options) {
   options = options || {};
-  options.api = options.api || 'http://demo.gitlab.com/api/v3';
+  options.api = options.api || 'https://gitlab.com/api/v3';
   this.constructor.super_.call(this, options);
   this.token = options.token;
 
