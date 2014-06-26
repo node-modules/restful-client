@@ -21,7 +21,7 @@ describe('client.test.js', function () {
     token: 'enEWf516mA168tP6BiVe',
     requestTimeout: 15000
   });
-  var lastId;
+  var lastId = 55045;
 
   afterEach(mm.restore);
 
@@ -40,11 +40,12 @@ describe('client.test.js', function () {
 
       it('should mock SyntaxError return err', function (done) {
         mm.http.request(/\//, '{w');
+        mm.https.request(/\//, '{w');
         gitlab.projects.list(function (err, result) {
           should.exists(err);
           err.name.should.equal('GitlabJSONResponseFormatError');
           err.data.should.eql({resBody: '{w'});
-          err.message.should.include('Unexpected token w');
+          err.message.should.containEql('Unexpected token w');
           err.statusCode.should.equal(200);
           should.not.exists(result);
           done();
@@ -52,12 +53,15 @@ describe('client.test.js', function () {
       });
 
       it('should mock 403 response return err', function (done) {
-        mm.http.request(/\//, '{"name": "MockError", "message": "mock error", "errors": [{"field": "test"}]}', {statusCode: 403});
+        mm.http.request(/\//, '{"name": "MockError", "message": "mock error", "errors": [{"field": "test"}]}',
+          {statusCode: 403});
+        mm.https.request(/\//, '{"name": "MockError", "message": "mock error", "errors": [{"field": "test"}]}',
+          {statusCode: 403});
         gitlab.projects.list(function (err, result) {
           should.exists(err);
           err.name.should.equal('GitlabMockError');
           err.data.should.eql({resBody: {"name": "MockError", "message": "mock error", "errors": [{"field": "test"}]}});
-          err.message.should.include('mock error');
+          err.message.should.containEql('mock error');
           err.statusCode.should.equal(403);
           err.errors.should.eql([{"field": "test"}]);
           should.not.exists(result);
@@ -67,11 +71,12 @@ describe('client.test.js', function () {
 
       it('should mock request error', function (done) {
         mm.http.requestError(/\//, 'socket hangup');
+        mm.https.requestError(/\//, 'socket hangup');
         gitlab.projects.list(function (err, result) {
           should.exists(err);
           err.name.should.equal('GitlabMockHttpRequestError');
           err.data.should.eql({resBody: undefined});
-          err.message.should.include('socket hangup');
+          err.message.should.containEql('socket hangup');
           should.not.exists(result);
           done();
         });
@@ -109,7 +114,7 @@ describe('client.test.js', function () {
           should.ok(Buffer.isBuffer(blob));
           blob.should.be.instanceof(Buffer);
           blob.length.should.above(0);
-          blob.toString().should.include('gitlab-client-unittest');
+          blob.toString().should.containEql('gitlab-client-unittest');
           done();
         });
       });
@@ -133,7 +138,7 @@ describe('client.test.js', function () {
         gitlab.projects.get({id: 40440404040440404}, function (err, result) {
           should.exists(err);
           err.name.should.equal('Gitlab404Error');
-          err.message.should.include('404 Not Found');
+          err.message.should.containEql('404 Not Found');
           err.statusCode.should.equal(404);
           should.not.exists(result);
           done();

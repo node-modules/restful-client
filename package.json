@@ -24,10 +24,10 @@
     "autod": "*",
     "blanket": "*",
     "coveralls": "*",
-    "mm": "~0.2.1",
+    "mm": "*",
     "mocha": "*",
     "mocha-lcov-reporter": "*",
-    "should": "~3.3.2",
+    "should": "*",
     "travis-cov": "*"
   },
   "homepage": "https://github.com/node-modules/restful-client",
