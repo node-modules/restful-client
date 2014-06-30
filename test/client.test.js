@@ -166,6 +166,21 @@ describe('client.test.js', function () {
       });
 
     });
+
+    describe('Promise', function() {
+      it('should return promise unless callback', function(done) {
+        var promise = gitlab.projects.list();
+        should.exists(promise);
+        promise
+          .then(function(result) {
+            should.exists(result);
+            result.length.should.above(1);
+            result[0].should.have.property('id');
+            lastId = result[result.length - 1].id;
+            done();
+          });
+      });
+    });
   });
 
 });
