@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "debug": "~0.8.1",
+    "promise": "~5.0.0",
     "urllib": "~0.5.16"
   },
   "devDependencies": {
