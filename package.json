@@ -1,6 +1,6 @@
 {
   "name": "restful-client",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "RESTFul api client base object. Usually use by some api client implementation.",
   "main": "index.js",
   "scripts": {
