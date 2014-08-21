@@ -1,10 +1,14 @@
-/*!
+/**!
  * restful-client - test/gitlab_client.js
- * Copyright(c) 2013 fengmk2 <fengmk2@gmail.com>
+ *
+ * Copyright(c) fengmk2 and other contributors.
  * MIT Licensed
+ *
+ * Authors:
+ *   fengmk2 <fengmk2@gmail.com> (http://fengmk2.github.com)
  */
 
-"use strict";
+'use strict';
 
 /**
  * Module dependencies.
@@ -17,11 +21,6 @@ function Project(client) {
   this.constructor.super_.call(this, client, '/projects', 'id');
 }
 util.inherits(Project, restful.RESTFulResource);
-
-function Issue(client) {
-  this.constructor.super_.call(this, client, '/projects/:id/issues', 'issue_id');
-}
-util.inherits(Issue, restful.RESTFulResource);
 
 function Repository(client) {
   this.constructor.super_.call(this, client, '/projects/:id/repository/:type', 'branch');
@@ -46,13 +45,17 @@ Repository.prototype.getBlob = function (params, callback) {
 function Gitlab(options) {
   options = options || {};
   options.api = options.api || 'https://gitlab.com/api/v3';
-  this.constructor.super_.call(this, options);
+  restful.RESTFulClient.call(this, options);
+
   this.token = options.token;
 
   this.addResources({
     projects: Project,
-    issues: Issue,
     repositorys: Repository,
+    issues: {
+      resourcePath: '/projects/:id/issues',
+      idName: 'issue_id'
+    }
   });
 }
 
