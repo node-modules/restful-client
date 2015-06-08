@@ -1,7 +1,6 @@
 restful-client
 =======
 
-
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
@@ -24,8 +23,6 @@ restful-client
 [node-url]: http://nodejs.org/download/
 [download-image]: https://img.shields.io/npm/dm/restful-client.svg?style=flat-square
 [download-url]: https://npmjs.org/package/restful-client
-
-![logo](https://raw.github.com/node-modules/restful-client/master/logo.png)
 
 RESTFul api client base object. Usually use by some api client implementation.
 
@@ -70,6 +67,39 @@ var gitlab = new Gitlab({token: 'your token', requestTimeout: 5000});
 gitlab.projects.list({page: 1}, function (err, result) {
   console.log(arguments);
 });
+```
+
+## RESTFulResource
+
+Every RESTFulResource instance has these methods:
+
+- constructor
+
+```js
+/**
+ * RESTFul Resource base class.
+ *
+ * @param {Client} client RESTful api client instance.
+ * @param {String} resourcePath resource url path, e.g.: '/issues'
+ * @param {String} idName id name for get one entry, e.g.: 'id', 'name'
+ * @param {String} [updateMethod] update http method, default is 'put'
+ */
+function RESTFulResource(client, resourcePath, idName, updateMethod);
+```
+
+- get(params, callback)
+- list(params, callback)
+- create(params, callback)
+- update(params, callback)
+- remove(params, callback)
+
+### Example
+
+```js
+function Project(client) {
+  this.constructor.super_.call(this, client, '/projects', 'id');
+}
+util.inherits(Project, restful.RESTFulResource);
 ```
 
 ## License
