@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "debug": "^2.6.7",
-    "urllib": "^2.22.0"
+    "urllib": "^3.0.0"
   },
   "devDependencies": {
     "autod": "*",
